@@ -1,18 +1,31 @@
 import { ImageResponse } from "next/og";
-import { resolveDynamicSiteUrl } from "@/lib/site-url";
 
+export const dynamic = "force-dynamic";
 export const alt = "TwinForge — Your AI Digital Twin Works & Earns While You Sleep";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default async function OpenGraphImage() {
-  const siteUrl = await resolveDynamicSiteUrl();
-  let domainBadge = "TWINFORGE GLOBAL";
+function resolveDomainBadge(): string {
+  const candidate =
+    process.env.RENDER_EXTERNAL_URL?.trim() ||
+    process.env.NEXT_PUBLIC_APP_URL?.trim() ||
+    (process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL.trim()}`
+      : "") ||
+    "https://arqavora-review.onrender.com";
   try {
-    domainBadge = new URL(siteUrl).host.toUpperCase();
+    const host = new URL(candidate).host.toUpperCase();
+    if (host && !host.includes("LOCALHOST") && !host.startsWith("127.0.0.1")) {
+      return host;
+    }
   } catch {
     // keep default
   }
+  return "TWINFORGE GLOBAL";
+}
+
+export default function OpenGraphImage() {
+  const domainBadge = resolveDomainBadge();
   return new ImageResponse(
     (
       <div
@@ -30,7 +43,6 @@ export default async function OpenGraphImage() {
           border: "4px solid #d4af37",
         }}
       >
-        {/* Top Brand Row */}
         <div
           style={{
             display: "flex",
@@ -98,7 +110,6 @@ export default async function OpenGraphImage() {
           </div>
         </div>
 
-        {/* Center Hero */}
         <div
           style={{
             display: "flex",
@@ -134,7 +145,6 @@ export default async function OpenGraphImage() {
           </div>
         </div>
 
-        {/* Bottom Feature Badges */}
         <div
           style={{
             display: "flex",

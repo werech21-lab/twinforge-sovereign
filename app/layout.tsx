@@ -14,6 +14,8 @@ import {
 import { resolveDynamicSiteUrl } from "@/lib/site-url";
 import "./globals.css";
 
+export const dynamic = "force-dynamic";
+
 const cairo = Cairo({
   subsets: ["arabic", "latin"],
   weight: ["400", "500", "600", "700", "800"],

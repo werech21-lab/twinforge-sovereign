@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "preinstall": "node -e \"const fs=require('fs');try{const hasCra=fs.existsSync('node_modules/react-scripts');const rp=fs.existsSync('node_modules/react/package.json')?JSON.parse(fs.readFileSync('node_modules/react/package.json','utf8')):null;if(hasCra||(rp&&!String(rp.version).startsWith('19.'))){fs.rmSync('node_modules',{recursive:true,force:true});}}catch{}\"",
+    "prebuild": "node -e \"const fs=require('fs');try{if(fs.existsSync('.next'))fs.rmSync('.next',{recursive:true,force:true});}catch{}\"",
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
@@ -10,29 +12,37 @@
     "typecheck": "tsc --noEmit"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=20.0.0 <25.0.0"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
     "@supabase/ssr": "^0.7.0",
     "@supabase/supabase-js": "^2.78.0",
-    "next": "^15.5.6",
-    "openai": "^4.104.0",
-    "pg": "^8.23.1",
-    "playwright-core": "^1.65.0",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "zod": "^3.25.76"
-  },
-  "devDependencies": {
     "@tailwindcss/postcss": "^4.1.16",
     "@types/node": "^24.9.2",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
-    "eslint": "^9.39.0",
-    "eslint-config-next": "^15.5.6",
+    "next": "^15.5.6",
+    "openai": "^4.104.0",
+    "pg": "^8.23.1",
+    "playwright-core": "^1.65.0",
     "postcss": "^8.5.6",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "tailwindcss": "^4.1.16",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "eslint": "^9.39.0",
+    "eslint-config-next": "^15.5.6"
+  },
+  "overrides": {
+    "react": "$react",
+    "react-dom": "$react-dom"
+  },
+  "resolutions": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
   }
 }
