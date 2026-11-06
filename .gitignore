@@ -1,0 +1,14 @@
+node_modules
+.next
+.vercel
+.env
+.env.local
+.env*.local
+.DS_Store
+*.log
+*.tsbuildinfo
+__pycache__/
+*.py[cod]
+.venv/
+snapshots/
+portal_check.png

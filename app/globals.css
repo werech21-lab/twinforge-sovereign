@@ -1,0 +1,245 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #070a10;
+  --bg-elevated: #0f1624;
+  --fg: #f1f5f9;
+  --muted: #cbd5e1;
+  --line: rgba(255, 255, 255, 0.15);
+  --accent: #34d399;
+  --accent-dim: #059669;
+  --warn: #f5d061;
+  --gold: #d4af37;
+  --gold-bright: #f5d061;
+  --danger: #f87171;
+  --radius: 1.25rem;
+  --font-display: var(--font-readex), "Cairo", system-ui, sans-serif;
+  --font-body: var(--font-cairo), "Readex Pro", system-ui, sans-serif;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-dim: var(--accent-dim);
+  --color-warn: var(--warn);
+  --color-danger: var(--danger);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 18px;
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.7;
+  background:
+    radial-gradient(1200px 700px at 85% -10%, rgba(212, 175, 55, 0.16), transparent 55%),
+    radial-gradient(900px 500px at 0% 20%, rgba(52, 211, 153, 0.1), transparent 50%),
+    radial-gradient(800px 400px at 50% 100%, rgba(15, 22, 36, 0.9), transparent 60%),
+    var(--bg);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Typography helpers */
+.tf-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.tf-title-gold {
+  font-family: var(--font-display);
+  font-weight: 800;
+  background: linear-gradient(120deg, #ffffff 10%, #f5d061 45%, #d4af37 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.tf-body {
+  color: #f1f5f9;
+  font-size: 1.0625rem;
+  font-weight: 500;
+}
+
+.tf-muted {
+  color: #cbd5e1;
+  font-size: 0.9375rem;
+  font-weight: 500;
+}
+
+.tf-container,
+.tf-shell {
+  width: 96vw !important;
+  max-width: 1920px !important;
+  margin: 0 auto !important;
+  padding-left: 2vw !important;
+  padding-right: 2vw !important;
+}
+
+.tf-card {
+  border-radius: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(15, 22, 36, 0.9);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.55);
+  padding: 2rem;
+}
+
+.tf-card-gold {
+  border-color: rgba(245, 208, 97, 0.35);
+  box-shadow:
+    0 0 0 1px rgba(212, 175, 55, 0.15),
+    0 25px 50px -12px rgba(0, 0, 0, 0.55),
+    0 0 40px rgba(212, 175, 55, 0.12);
+}
+
+.tf-input {
+  width: 100%;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: #0a101c;
+  color: #ffffff;
+  padding: 0.9rem 1.1rem;
+  font-size: 1.05rem;
+  font-weight: 500;
+  outline: none;
+}
+
+.tf-input:focus {
+  border-color: #f5d061;
+  box-shadow: 0 0 0 3px rgba(245, 208, 97, 0.15);
+}
+
+.tf-input::placeholder {
+  color: #94a3b8;
+}
+
+.tf-btn-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem;
+  background: linear-gradient(120deg, #8a6a12, #d4af37, #f5d061);
+  color: #1a1408;
+  font-weight: 700;
+  font-size: 1.05rem;
+  padding: 0.95rem 1.75rem;
+  border: none;
+  cursor: pointer;
+  transition: filter 0.2s ease, transform 0.15s ease;
+}
+
+.tf-btn-gold:hover {
+  filter: brightness(1.08);
+}
+
+.tf-btn-gold:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.tf-btn-emerald {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem;
+  background: linear-gradient(120deg, #059669, #34d399);
+  color: #042f1e;
+  font-weight: 700;
+  font-size: 1.05rem;
+  padding: 0.95rem 1.75rem;
+  border: none;
+  cursor: pointer;
+}
+
+.tf-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem;
+  border: 1px solid rgba(245, 208, 97, 0.4);
+  background: transparent;
+  color: #f5d061;
+  font-weight: 700;
+  font-size: 1.05rem;
+  padding: 0.95rem 1.75rem;
+  cursor: pointer;
+}
+
+@keyframes twin-wave {
+  0%,
+  100% {
+    transform: scaleY(0.45);
+    opacity: 0.65;
+  }
+  50% {
+    transform: scaleY(1.15);
+    opacity: 1;
+  }
+}
+
+.animate-wave {
+  transform-origin: bottom;
+  animation: twin-wave 0.9s ease-in-out infinite;
+}
+
+@keyframes ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(50%);
+  }
+}
+
+.tf-ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker 40s linear infinite;
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(52, 211, 153, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 36px rgba(245, 208, 97, 0.35);
+  }
+}
+
+.tf-live-glow {
+  animation: pulse-glow 2.8s ease-in-out infinite;
+}
