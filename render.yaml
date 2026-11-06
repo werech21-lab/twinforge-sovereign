@@ -1,0 +1,44 @@
+services:
+  - type: web
+    name: arqavora-review
+    runtime: node
+    branch: main
+    autoDeploy: true
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    healthCheckPath: /robots.txt
+    envVars:
+      - key: NODE_VERSION
+        value: "22.14.0"
+      - key: NEXT_TELEMETRY_DISABLED
+        value: "1"
+      - key: NEXT_PUBLIC_APP_URL
+        value: "https://arqavora-review.onrender.com"
+      - key: GEMINI_MODEL
+        value: "gemini-3.8-flash"
+      - key: OPENAI_MODEL
+        value: "gpt-4o-mini"
+      - key: AI_MAX_TOKENS
+        value: "1200"
+      - key: AI_FAILOVER_TIMEOUT_MS
+        value: "12000"
+      - key: AI_TASK_COST_CAP_USD
+        value: "0.10"
+      - key: WITHDRAWAL_COOLING_DAYS
+        value: "7"
+      - key: NEXT_PUBLIC_SUPABASE_URL
+        sync: false
+      - key: NEXT_PUBLIC_SUPABASE_ANON_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: CRON_SECRET
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: ADMIN_ACTIVATE_KEY
+        sync: false

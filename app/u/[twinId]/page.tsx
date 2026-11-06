@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { ensureUserReferralCode } from "@/lib/referral-engine";
-import { getSiteUrl } from "@/lib/site-url";
+import { resolveDynamicSiteUrl } from "@/lib/site-url";
 import { LOCALES } from "@/lib/i18n/translations";
 import ViralReferralHub from "@/components/ViralReferralHub";
 
@@ -127,7 +127,7 @@ export async function generateMetadata({
   params: Promise<{ twinId: string }>;
 }): Promise<Metadata> {
   const { twinId } = await params;
-  const siteUrl = getSiteUrl();
+  const siteUrl = await resolveDynamicSiteUrl();
   const bundle = await fetchPublicTwin(twinId);
 
   if (!bundle) {

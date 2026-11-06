@@ -1,14 +1,24 @@
 import type { MetadataRoute } from "next";
-import { getSiteUrl } from "@/lib/site-url";
+import { resolveDynamicSiteUrl } from "@/lib/site-url";
 
-export default function robots(): MetadataRoute.Robots {
-  const siteUrl = getSiteUrl();
+export const dynamic = "force-dynamic";
+
+export default async function robots(): Promise<MetadataRoute.Robots> {
+  const siteUrl = await resolveDynamicSiteUrl();
 
   return {
     rules: [
       {
         userAgent: "*",
-        allow: ["/", "/u/", "/marketplace", "/subscribe", "/about", "/developers", "/faq"],
+        allow: [
+          "/",
+          "/u/",
+          "/marketplace",
+          "/subscribe",
+          "/about",
+          "/developers",
+          "/faq",
+        ],
         disallow: [
           "/api/",
           "/admin/",

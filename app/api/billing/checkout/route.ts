@@ -8,9 +8,16 @@ import { fulfillCheckout } from "@/lib/billing/fulfill";
 export const runtime = "nodejs";
 
 function appOrigin(request: Request) {
-  const env = process.env.NEXT_PUBLIC_APP_URL;
-  if (env) return env.replace(/\/$/, "");
   const url = new URL(request.url);
+  if (url.hostname !== "localhost" && url.hostname !== "127.0.0.1") {
+    const fHost = request.headers.get("x-forwarded-host")?.split(",")[0]?.trim();
+    const fProto =
+      request.headers.get("x-forwarded-proto")?.split(",")[0]?.trim() || "https";
+    if (fHost) return `${fProto}://${fHost}`.replace(/\/$/, "");
+    return `${url.protocol}//${url.host}`.replace(/\/$/, "");
+  }
+  const env = process.env.RENDER_EXTERNAL_URL || process.env.NEXT_PUBLIC_APP_URL;
+  if (env) return env.replace(/\/$/, "");
   return `${url.protocol}//${url.host}`;
 }
 
@@ -27,7 +34,10 @@ async function createStripeCheckoutSession(input: {
   const unitAmount = Math.round(input.priceUsd * 100);
   const params = new URLSearchParams();
   params.set("mode", "payment");
-  params.set("success_url", `${input.origin}/balances?billing=success&session_id={CHECKOUT_SESSION_ID}`);
+  params.set(
+    "success_url",
+    `${input.origin}/balances?billing=success&session_id={CHECKOUT_SESSION_ID}`,
+  );
   params.set("cancel_url", `${input.origin}/subscribe?billing=cancel`);
   params.set("client_reference_id", input.userId);
   params.set("metadata[sku]", input.sku);

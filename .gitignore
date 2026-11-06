@@ -12,3 +12,6 @@ __pycache__/
 .venv/
 snapshots/
 portal_check.png
+
+.vercel
+.env*

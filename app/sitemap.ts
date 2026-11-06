@@ -1,7 +1,9 @@
 import type { MetadataRoute } from "next";
 import { LOCALES } from "@/lib/i18n/translations";
-import { getSiteUrl } from "@/lib/site-url";
+import { resolveDynamicSiteUrl } from "@/lib/site-url";
 import { createAdminClient } from "@/lib/supabase/admin";
+
+export const dynamic = "force-dynamic";
 
 const PUBLIC_PATHS: Array<{
   path: string;
@@ -33,7 +35,7 @@ function build12LanguageAlternates(fullUrl: string): Record<string, string> {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const siteUrl = getSiteUrl();
+  const siteUrl = await resolveDynamicSiteUrl();
   const now = new Date();
 
   const entries: MetadataRoute.Sitemap = PUBLIC_PATHS.map((item) => {
@@ -49,7 +51,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     };
   });
 
-  // Dynamically index active public Digital Twin profiles (/u/[twinId]) across all 12 languages
   try {
     const admin = createAdminClient();
     const { data: twins } = await admin

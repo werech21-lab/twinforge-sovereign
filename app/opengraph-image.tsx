@@ -1,10 +1,18 @@
 import { ImageResponse } from "next/og";
+import { resolveDynamicSiteUrl } from "@/lib/site-url";
 
 export const alt = "TwinForge — Your AI Digital Twin Works & Earns While You Sleep";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function OpenGraphImage() {
+export default async function OpenGraphImage() {
+  const siteUrl = await resolveDynamicSiteUrl();
+  let domainBadge = "TWINFORGE GLOBAL";
+  try {
+    domainBadge = new URL(siteUrl).host.toUpperCase();
+  } catch {
+    // keep default
+  }
   return new ImageResponse(
     (
       <div
@@ -86,7 +94,7 @@ export default function OpenGraphImage() {
               fontWeight: 800,
             }}
           >
-            12 GLOBAL LANGUAGES · LIVE AI
+            12 LANGUAGES · {domainBadge}
           </div>
         </div>
 
